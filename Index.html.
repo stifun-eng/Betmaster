@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI WIN MASTER LIVE</title>
+    <style>
+        :root { --gold: #f1c40f; --bg: #050505; --win: #00ff88; }
+        body { background: var(--bg); color: #eee; font-family: sans-serif; padding: 15px; text-align: center; }
+        .card { background: #121212; border-radius: 12px; padding: 15px; margin-bottom: 12px; border: 1px solid #333; text-align: left; border-left: 5px solid #3498db; }
+        .prediction { font-size: 20px; color: var(--win); font-weight: bold; }
+        button { background: var(--gold); border: none; padding: 15px; width: 100%; border-radius: 10px; font-weight: bold; margin: 10px 0; }
+        .btn-go { display: block; width: 100%; padding: 10px; background: #222; color: var(--gold); border: 1px solid var(--gold); border-radius: 8px; margin-top: 10px; text-decoration: none; text-align: center; font-size: 12px; }
+    </style>
+</head>
+<body>
+    <h2>AI WIN MASTER <span style="color:var(--gold)">PRO</span></h2>
+    <button onclick="caricaDati()">🚀 SCANSIONA MATCH REALI</button>
+    <div id="display"></div>
+
+    <script>
+        async function caricaDati() {
+            const d = document.getElementById('display');
+            d.innerHTML = "Caricamento...";
+            try {
+                const response = await fetch('https://api.football-data.org/v4/matches', {
+                    headers: { 'X-Auth-Token': '85ec52821cc54892991d22a29a1260d0' }
+                });
+                const data = await response.json();
+                d.innerHTML = "";
+                data.matches.forEach(m => {
+                    d.innerHTML += `
+                        <div class="card">
+                            <div style="font-size:10px; color:#3498db;">${m.competition.name}</div>
+                            <b>${m.homeTeam.name} vs ${m.awayTeam.name}</b>
+                            <div class="prediction">👉 ANALISI AI...</div>
+                            <a href="https://www.sisal.it" class="btn-go">VAI SU SISAL</a>
+                        </div>`;
+                });
+            } catch (e) { d.innerHTML = "Errore connessione."; }
+        }
+    </script>
+</body>
+</html>
